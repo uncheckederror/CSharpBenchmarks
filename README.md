@@ -1,5 +1,5 @@
 # CSharpBenchmarks
- Idenitify and compare the performance of loops and data structures in dotnet.
+ Identify and compare the performance of loops and data structures in dotnet.
 
 # Read All Elements from a Data Structure
 BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18362
