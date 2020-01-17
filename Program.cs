@@ -229,14 +229,14 @@ namespace MyBenchmarks
         [Benchmark]
         public void Array()
         {
-            _ = array[array.Length];
+            _ = array[array.Length - 1];
         }
 
         // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=netcore-3.1
         [Benchmark]
         public void List()
         {
-            _ = list[list.Count];
+            _ = list[list.Count - 1];
         }
 
         // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netcore-3.1
@@ -298,6 +298,8 @@ namespace MyBenchmarks
                 if (array[i] == specificValue)
                 {
                     _ = array[i];
+                    // Exit the loop when this statement is hit.
+                    break;
                 }
             }
         }
@@ -311,6 +313,8 @@ namespace MyBenchmarks
                 if (list[i] == specificValue)
                 {
                     _ = list[i];
+                    // Exit the loop when this statement is hit.
+                    break;
                 }
             }
         }
