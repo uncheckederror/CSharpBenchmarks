@@ -11,27 +11,32 @@ namespace MyBenchmarks
     /// </summary>
     public class ReadAll
     {
-        private readonly int[] array;
-        private readonly List<int> list;
-        private readonly Dictionary<int, int> dictionary;
-        private readonly IEnumerable<int> enumerable;
+        private int[] array;
+        private List<int> list;
+        private Dictionary<int, int> dictionary;
+        private IEnumerable<int> enumerable;
 
-        public ReadAll()
+        [Params(10, 100, 1000, 10000, 100000, 1000000)]
+        public int N;
+
+        [GlobalSetup]
+        public void Setup()
         {
-            var random = new Random();
-            array = new int[10000];
+            var random = new Random(42);
+            array = new int[N];
             list = new List<int>();
             dictionary = new Dictionary<int, int>();
-            enumerable = array;
 
             // Fill each data structure with the same random ints.
-            for (var i = 0; i < 10000; i++)
+            for (var i = 0; i < N; i++)
             {
                 var randomInt = random.Next();
                 array[i] = randomInt;
                 list.Add(randomInt);
                 dictionary.Add(i, randomInt);
             }
+
+            enumerable = array;
         }
 
         // https://docs.microsoft.com/en-us/dotnet/api/system.array?view=netcore-3.1
@@ -40,7 +45,7 @@ namespace MyBenchmarks
         {
             foreach (var i in array)
             {
-                // The underscore is a varible that is imedately disguarded, because we don't care about its value.
+                // The underscore is a varible that is captured and then immediately disguarded, because we don't care about its value.
                 // https://docs.microsoft.com/en-us/dotnet/csharp/discards
                 _ = i;
             }
@@ -82,35 +87,40 @@ namespace MyBenchmarks
     /// </summary>
     public class ReadSingleRandom
     {
-        private readonly int[] array;
-        private readonly List<int> list;
-        private readonly Dictionary<int, int> dictionary;
-        private readonly IEnumerable<int> enumerable;
-        private readonly Random random = new Random();
+        private int[] array;
+        private List<int> list;
+        private Dictionary<int, int> dictionary;
+        private IEnumerable<int> enumerable;
+        private Random random = new Random();
 
-        public ReadSingleRandom()
+        [Params(10, 100, 1000, 10000, 100000, 1000000)]
+        public int N;
+
+        [GlobalSetup]
+        public void Setup()
         {
             var random = new Random();
-            array = new int[10000];
+            array = new int[N];
             list = new List<int>();
             dictionary = new Dictionary<int, int>();
-            enumerable = array;
 
             // Fill each data structure with the same random ints.
-            for (var i = 0; i < 10000; i++)
+            for (var i = 0; i < N; i++)
             {
                 var randomInt = random.Next();
                 array[i] = randomInt;
                 list.Add(randomInt);
                 dictionary.Add(i, randomInt);
             }
+
+            enumerable = array;
         }
 
         // https://docs.microsoft.com/en-us/dotnet/api/system.array?view=netcore-3.1
         [Benchmark]
         public void Array()
         {
-            var element = random.Next(0, 10000);
+            var element = random.Next(0, N - 1);
             _ = array[element];
         }
 
@@ -118,7 +128,7 @@ namespace MyBenchmarks
         [Benchmark]
         public void List()
         {
-            var element = random.Next(0, 10000);
+            var element = random.Next(0, N - 1);
             _ = list[element];
         }
 
@@ -126,7 +136,7 @@ namespace MyBenchmarks
         [Benchmark]
         public void Dictionary()
         {
-            var element = random.Next(0, 10000);
+            var element = random.Next(0, N - 1);
             _ = dictionary[element];
         }
 
@@ -134,7 +144,7 @@ namespace MyBenchmarks
         [Benchmark]
         public void Enumerable()
         {
-            var element = random.Next(0, 10000);
+            var element = random.Next(0, N - 1);
             _ = enumerable.ElementAtOrDefault(element);
         }
     }
@@ -144,27 +154,32 @@ namespace MyBenchmarks
     /// </summary>
     public class ReadFirst
     {
-        private readonly int[] array;
-        private readonly List<int> list;
-        private readonly Dictionary<int, int> dictionary;
-        private readonly IEnumerable<int> enumerable;
+        private int[] array;
+        private List<int> list;
+        private Dictionary<int, int> dictionary;
+        private IEnumerable<int> enumerable;
 
-        public ReadFirst()
+        [Params(1000000)]
+        public int N;
+
+        [GlobalSetup]
+        public void Setup()
         {
             var random = new Random();
-            array = new int[10000];
+            array = new int[N];
             list = new List<int>();
             dictionary = new Dictionary<int, int>();
-            enumerable = array;
 
             // Fill each data structure with the same random ints.
-            for (var i = 0; i < 10000; i++)
+            for (var i = 0; i < N; i++)
             {
                 var randomInt = random.Next();
                 array[i] = randomInt;
                 list.Add(randomInt);
                 dictionary.Add(i, randomInt);
             }
+
+            enumerable = array;
         }
 
         // https://docs.microsoft.com/en-us/dotnet/api/system.array?view=netcore-3.1
@@ -181,13 +196,13 @@ namespace MyBenchmarks
             _ = list[0];
         }
 
+        // This isn't meaningful because dictionaries aren't ordered. There's no 'first' or 'last'.
         // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netcore-3.1
-        [Benchmark]
-        public void Dictionary()
-        {
-            // This isn't meaningful because dictionaries aren't ordered. There's no 'first' or 'last'.
-            _ = dictionary.Values.FirstOrDefault();
-        }
+        //[Benchmark]
+        //public void Dictionary()
+        //{
+        //    _ = dictionary.Values.FirstOrDefault();
+        //}
 
         // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1?view=netcore-3.1
         [Benchmark]
@@ -202,27 +217,32 @@ namespace MyBenchmarks
     /// </summary>
     public class ReadLast
     {
-        private readonly int[] array;
-        private readonly List<int> list;
-        private readonly Dictionary<int, int> dictionary;
-        private readonly IEnumerable<int> enumerable;
+        private int[] array;
+        private List<int> list;
+        private Dictionary<int, int> dictionary;
+        private IEnumerable<int> enumerable;
 
-        public ReadLast()
+        [Params(1000000)]
+        public int N;
+
+        [GlobalSetup]
+        public void Setup()
         {
             var random = new Random();
-            array = new int[10000];
+            array = new int[N];
             list = new List<int>();
             dictionary = new Dictionary<int, int>();
-            enumerable = array;
 
             // Fill each data structure with the same random ints.
-            for (var i = 0; i < 10000; i++)
+            for (var i = 0; i < N; i++)
             {
                 var randomInt = random.Next();
                 array[i] = randomInt;
                 list.Add(randomInt);
                 dictionary.Add(i, randomInt);
             }
+
+            enumerable = array;
         }
 
         // https://docs.microsoft.com/en-us/dotnet/api/system.array?view=netcore-3.1
@@ -239,13 +259,13 @@ namespace MyBenchmarks
             _ = list[list.Count - 1];
         }
 
-        // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netcore-3.1
-        [Benchmark]
-        public void Dictionary()
-        {
-            // This isn't meaningful because dictionaries aren't ordered. There's no 'first' or 'last'.
-            _ = dictionary.Values.LastOrDefault();
-        }
+        // This isn't meaningful because dictionaries aren't ordered. There's no 'first' or 'last'.
+        //// https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netcore-3.1
+        //[Benchmark]
+        //public void Dictionary()
+        //{
+        //    _ = dictionary.Values.LastOrDefault();
+        //}
 
         // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1?view=netcore-3.1
         [Benchmark]
@@ -260,21 +280,25 @@ namespace MyBenchmarks
     /// </summary>
     public class ReadSingleSpecific
     {
-        private readonly int[] array;
-        private readonly List<int> list;
-        private readonly Dictionary<int, int> dictionary;
-        private readonly IEnumerable<int> enumerable;
-        private readonly int specificValue;
+        private int[] array;
+        private List<int> list;
+        private Dictionary<int, int> dictionary;
+        private IEnumerable<int> enumerable;
+        private int specificValue;
 
-        public ReadSingleSpecific()
+        [Params(10, 100, 1000, 10000, 100000, 1000000)]
+        public int N;
+
+        [GlobalSetup]
+        public void Setup()
         {
             var random = new Random();
-            array = new int[10000];
+            array = new int[N];
             list = new List<int>();
             dictionary = new Dictionary<int, int>();
 
             // Fill each data structure with the same random ints.
-            for (var i = 0; i < 10000; i++)
+            for (var i = 0; i < N; i++)
             {
                 var randomInt = random.Next();
                 array[i] = randomInt;
@@ -283,9 +307,10 @@ namespace MyBenchmarks
             }
 
             specificValue = 999999;
-            array[100] = specificValue;
-            list[100] = specificValue;
-            dictionary[100] = specificValue;
+            array[N / 2] = specificValue;
+            list[N / 2] = specificValue;
+            dictionary[N / 2] = specificValue;
+
             enumerable = array;
         }
 
@@ -323,8 +348,7 @@ namespace MyBenchmarks
         [Benchmark]
         public void Dictionary()
         {
-            // This isn't meaningful because dictionaries aren't ordered. There's no 'first' or 'last'.
-            _ = dictionary[100];
+            _ = dictionary[N / 2];
         }
 
         // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1?view=netcore-3.1
@@ -341,17 +365,24 @@ namespace MyBenchmarks
     /// </summary>
     public class Loops
     {
-        private readonly int[] data;
+        private int[] data;
+        private List<int> dataAsList;
 
-        public Loops()
+        [Params(10, 100, 1000, 10000, 100000, 1000000)]
+        public int N;
+
+        [GlobalSetup]
+        public void Setup()
         {
             var random = new Random();
-            data = new int[10000];
+            data = new int[N];
 
-            for (var i = 0; i < 10000; i++)
+            for (var i = 0; i < N; i++)
             {
                 data[i] = random.Next();
             }
+
+            dataAsList = data.ToList();
         }
 
         // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/for
@@ -397,6 +428,13 @@ namespace MyBenchmarks
                 count++;
             }
             while (count < data.Length);
+        }
+
+        // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.foreach?view=netcore-3.1
+        [Benchmark]
+        public void LinqForEach()
+        {
+            dataAsList.ForEach(x => _ = x);
         }
     }
 
