@@ -29,6 +29,10 @@
 | Dictionary | 1000000 | 3,823,237.500 ns | 3,331.5829 ns | 2,782.0226 ns | 3,822,852.344 ns |
 | Enumerable | 1000000 | 6,709,897.489 ns | 1,196.0691 ns | 1,060.2841 ns | 6,709,939.062 ns |
 
+* Array's are the fastest data structure to read all elements from.
+* Lists are 6.5 times slower when N = 10 and 4.15 times slower when N = 1M.
+* Dictionary's are only ~20% slower than lists. A relatively minor performance hit.
+* Using the IEnumerable interface on top of an Array is 14 times slower when N = 10 and 8.3 times slower when N = 1M.
 
 # Read a Random Element
 |     Method |       N |     Mean |    Error |   StdDev |   Median |
@@ -99,6 +103,40 @@
 |       List | 1000000 |   939,321.791 ns |    292.7719 ns |    259.5346 ns |
 | Dictionary | 1000000 |        12.423 ns |      0.0040 ns |      0.0038 ns |
 | Enumerable | 1000000 | 1,480,188.236 ns | 13,180.8004 ns | 11,006.5653 ns |
+
+# Write All Elements from an Array
+|           Method |       N |             Mean |          Error |         StdDev |
+|----------------- |-------- |-----------------:|---------------:|---------------:|
+|            Array |      10 |         21.21 ns |       0.426 ns |       0.355 ns |
+|          ListAdd |      10 |        130.28 ns |       2.389 ns |       3.022 ns |
+|     ListAddRange |      10 |         72.76 ns |       0.503 ns |       0.420 ns |
+|    DictionaryAdd |      10 |        411.26 ns |       2.480 ns |       2.319 ns |
+| DictionaryTryAdd |      10 |        407.34 ns |       5.219 ns |       4.627 ns |
+|            Array |     100 |        132.14 ns |       1.013 ns |       0.948 ns |
+|          ListAdd |     100 |        587.36 ns |       1.509 ns |       1.260 ns |
+|     ListAddRange |     100 |        124.97 ns |       0.721 ns |       0.639 ns |
+|    DictionaryAdd |     100 |      3,667.09 ns |      37.273 ns |      34.865 ns |
+| DictionaryTryAdd |     100 |      3,716.60 ns |      30.277 ns |      28.321 ns |
+|            Array |    1000 |      1,156.67 ns |       8.862 ns |       8.290 ns |
+|          ListAdd |    1000 |      3,927.04 ns |      26.012 ns |      23.059 ns |
+|     ListAddRange |    1000 |        539.35 ns |       4.417 ns |       3.916 ns |
+|    DictionaryAdd |    1000 |     34,235.61 ns |     120.323 ns |     100.475 ns |
+| DictionaryTryAdd |    1000 |     35,260.67 ns |     145.700 ns |     129.159 ns |
+|            Array |   10000 |     10,944.74 ns |      76.390 ns |      71.455 ns |
+|          ListAdd |   10000 |     43,527.94 ns |     622.108 ns |     581.921 ns |
+|     ListAddRange |   10000 |      5,924.37 ns |      49.652 ns |      46.445 ns |
+|    DictionaryAdd |   10000 |    465,603.96 ns |   1,317.105 ns |   1,232.021 ns |
+| DictionaryTryAdd |   10000 |    483,884.04 ns |   2,803.839 ns |   2,485.530 ns |
+|            Array |  100000 |    258,269.28 ns |     324.509 ns |     287.669 ns |
+|          ListAdd |  100000 |    663,242.71 ns |   8,379.884 ns |   7,838.548 ns |
+|     ListAddRange |  100000 |    251,265.44 ns |     730.431 ns |     609.943 ns |
+|    DictionaryAdd |  100000 |  3,575,937.11 ns |  18,988.172 ns |  16,832.520 ns |
+| DictionaryTryAdd |  100000 |  3,736,792.30 ns |  15,093.308 ns |  13,379.824 ns |
+|            Array | 1000000 |  1,547,204.93 ns |  30,466.430 ns |  48,322.987 ns |
+|          ListAdd | 1000000 |  7,434,515.42 ns |  24,997.318 ns |  23,382.506 ns |
+|     ListAddRange | 1000000 |  1,146,523.93 ns |  18,632.211 ns |  17,428.582 ns |
+|    DictionaryAdd | 1000000 | 36,168,110.71 ns | 637,174.491 ns | 564,838.590 ns |
+| DictionaryTryAdd | 1000000 | 36,037,202.55 ns |  86,442.858 ns |  76,629.342 ns |
 
 # Loop Over All Elements in an Array
 |      Method |       N |             Mean |          Error |         StdDev |
