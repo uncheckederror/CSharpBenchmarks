@@ -91,7 +91,7 @@ namespace MyBenchmarks
         private List<int> list;
         private Dictionary<int, int> dictionary;
         private IEnumerable<int> enumerable;
-        private Random random = new Random();
+        private readonly Random random = new Random();
 
         [Params(10, 100, 1000, 10000, 100000, 1000000)]
         public int N;
@@ -249,7 +249,7 @@ namespace MyBenchmarks
         [Benchmark]
         public void Array()
         {
-            _ = array[array.Length - 1];
+            _ = array[^1];
         }
 
         // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=netcore-3.1
@@ -359,11 +359,96 @@ namespace MyBenchmarks
         }
     }
 
+    /// <summary>
+    /// Compares the performance of inserting all elements from an Array into a DataStructure.
+    /// </summary>
+    public class WriteAll
+    {
+        private int[] array;
+
+        [Params(10, 100, 1000, 10000, 100000, 1000000)]
+        public int N;
+
+        [GlobalSetup]
+        public void Setup()
+        {
+            var random = new Random(42);
+            array = new int[N];
+
+            // Fill each data structure with the same random ints.
+            for (var i = 0; i < N; i++)
+            {
+                var randomInt = random.Next();
+                array[i] = randomInt;
+            }
+        }
+
+        // https://docs.microsoft.com/en-us/dotnet/api/system.array?view=netcore-3.1
+        [Benchmark]
+        public void Array()
+        {
+            var localArray = new int[N];
+
+            for (var i = 0; i < localArray.Length; i++)
+            {
+                localArray[i] = array[i];
+            }
+        }
+
+        // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=netcore-3.1
+        [Benchmark]
+        public void ListAdd()
+        {
+            var localList = new List<int>();
+
+            foreach (var i in array)
+            {
+                localList.Add(i);
+            }
+        }
+
+        // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=netcore-3.1
+        [Benchmark]
+        public void ListAddRange()
+        {
+            var localList = new List<int>();
+
+            localList.AddRange(array);
+        }
+
+        // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netcore-3.1
+        [Benchmark]
+        public void DictionaryAdd()
+        {
+            var localDictionary = new Dictionary<int, int>();
+            for (var i = 0; i < array.Length; i++)
+            {
+                localDictionary.Add(i, array[i]);
+            }
+        }
+
+        // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netcore-3.1
+        [Benchmark]
+        public void DictionaryTryAdd()
+        {
+            var localDictionary = new Dictionary<int, int>();
+            for (var i = 0; i < array.Length; i++)
+            {
+                var check = localDictionary.TryAdd(i, array[i]);
+
+                // There's no point in having a boolean returned unless you use it, so I'm including it in this benchmark.
+                if (!check)
+                {
+                    throw new Exception("This should never be hit.");
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// Compares the performance of loops.
     /// </summary>
-    public class Loops
+    public class LoopAllElements
     {
         private int[] data;
         private List<int> dataAsList;
@@ -382,6 +467,7 @@ namespace MyBenchmarks
                 data[i] = random.Next();
             }
 
+            // A list is required to use the .ForEach() method.
             dataAsList = data.ToList();
         }
 
@@ -442,13 +528,14 @@ namespace MyBenchmarks
     {
         public static void Main(string[] args)
         {
-            var readAll = BenchmarkRunner.Run<ReadAll>();
-            var readSingleRandom = BenchmarkRunner.Run<ReadSingleRandom>();
-            var readFirst = BenchmarkRunner.Run<ReadFirst>();
-            var readLast = BenchmarkRunner.Run<ReadLast>();
-            var readSingleSpecific = BenchmarkRunner.Run<ReadSingleSpecific>();
+            //var readAll = BenchmarkRunner.Run<ReadAll>();
+            //var readSingleRandom = BenchmarkRunner.Run<ReadSingleRandom>();
+            //var readFirst = BenchmarkRunner.Run<ReadFirst>();
+            //var readLast = BenchmarkRunner.Run<ReadLast>();
+            //var readSingleSpecific = BenchmarkRunner.Run<ReadSingleSpecific>();
+            var writeAll = BenchmarkRunner.Run<WriteAll>();
 
-            var loops = BenchmarkRunner.Run<Loops>();
+            //var loops = BenchmarkRunner.Run<LoopAllElements>();
         }
     }
 }
