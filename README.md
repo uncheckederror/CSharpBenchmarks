@@ -138,6 +138,31 @@
 |    DictionaryAdd | 1000000 | 36,168,110.71 ns | 637,174.491 ns | 564,838.590 ns |
 | DictionaryTryAdd | 1000000 | 36,037,202.55 ns |  86,442.858 ns |  76,629.342 ns |
 
+# Copy Dictionary Values to a Stack
+|                 Method |       N |            Mean |        Error |       StdDev |
+|----------------------- |-------- |----------------:|-------------:|-------------:|
+|                ForEach |      10 |        116.5 ns |      0.33 ns |      0.30 ns |
+|             LinqSelect |      10 |        249.7 ns |      1.29 ns |      1.21 ns |
+| LinqSelectIntermediate |      10 |        252.5 ns |      1.22 ns |      1.08 ns |
+|                ForEach |     100 |        689.9 ns |      2.42 ns |      2.27 ns |
+|             LinqSelect |     100 |      1,501.2 ns |      4.93 ns |      4.37 ns |
+| LinqSelectIntermediate |     100 |      1,447.6 ns |      5.66 ns |      5.29 ns |
+|                ForEach |    1000 |      5,234.4 ns |     61.17 ns |     57.22 ns |
+|             LinqSelect |    1000 |     14,662.9 ns |    230.60 ns |    215.70 ns |
+| LinqSelectIntermediate |    1000 |     13,203.0 ns |     59.09 ns |     49.34 ns |
+|                ForEach |   10000 |     55,455.1 ns |    317.70 ns |    297.17 ns |
+|             LinqSelect |   10000 |    148,531.2 ns |    710.57 ns |    554.77 ns |
+| LinqSelectIntermediate |   10000 |    127,066.6 ns |    800.17 ns |    748.48 ns |
+|                ForEach |  100000 |    565,574.7 ns |  2,624.18 ns |  2,326.27 ns |
+|             LinqSelect |  100000 |  1,545,944.7 ns | 30,409.13 ns | 28,444.72 ns |
+| LinqSelectIntermediate |  100000 |  1,429,165.3 ns | 27,404.38 ns | 28,142.28 ns |
+|                ForEach | 1000000 |  8,116,902.7 ns | 26,836.76 ns | 25,103.13 ns |
+|             LinqSelect | 1000000 | 15,934,311.4 ns | 59,427.68 ns | 55,588.69 ns |
+| LinqSelectIntermediate | 1000000 | 17,450,616.1 ns | 59,623.95 ns | 52,855.08 ns |
+
+* Using a Foreach loop is 2.14 times faster when N = 10 and 2 times as faster when N = 1M.
+* Using an intermediate varible in a Linq Select loop has no performance impact when N = 10 and a 9% performance hit when N = 1M.
+
 # Loop Over All Elements in an Array
 |      Method |       N |             Mean |          Error |         StdDev |
 |------------ |-------- |-----------------:|---------------:|---------------:|
