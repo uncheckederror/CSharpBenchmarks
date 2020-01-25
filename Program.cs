@@ -445,6 +445,63 @@ namespace MyBenchmarks
         }
     }
 
+    public class SimpleObject
+    {
+        public int Id { get; set; }
+        public int Data { get; set; }
+    }
+
+    /// <summary>
+    /// What's the fastest way to copy values from a Dictionary to a Stack?
+    /// </summary>
+    public class CopyDictionaryToStack
+    {
+        private Dictionary<int, SimpleObject> dictionary;
+
+        [Params(10, 100, 1000, 10000, 100000, 1000000)]
+        public int N;
+
+        [GlobalSetup]
+        public void Setup()
+        {
+            var random = new Random();
+            dictionary = new Dictionary<int, SimpleObject>();
+
+            // Fill each data structure with the same random ints.
+            for (var i = 0; i < N; i++)
+            {
+                var randomInt = random.Next();
+                dictionary.Add(i, new SimpleObject { Id = i, Data = randomInt });
+            }
+        }
+
+        [Benchmark]
+        public void ForEach()
+        {
+            var localStack = new Stack<int>();
+            foreach (var item in dictionary)
+            {
+                localStack.Push(item.Value.Data);
+            }
+            _ = localStack.Peek();
+        }
+
+        [Benchmark]
+        public void LinqSelect()
+        {
+            var localStack = new Stack<int>(dictionary.Values.Select(x => x.Data));
+            _ = localStack.Peek();
+        }
+
+        [Benchmark]
+        public void LinqSelectIntermediate()
+        {
+            var values = dictionary.Values.ToList().Select(x => x.Data);
+            var localStack = new Stack<int>(values);
+            _ = localStack.Peek();
+        }
+    }
+
     /// <summary>
     /// Compares the performance of loops.
     /// </summary>
@@ -528,14 +585,15 @@ namespace MyBenchmarks
     {
         public static void Main(string[] args)
         {
-            //var readAll = BenchmarkRunner.Run<ReadAll>();
-            //var readSingleRandom = BenchmarkRunner.Run<ReadSingleRandom>();
-            //var readFirst = BenchmarkRunner.Run<ReadFirst>();
-            //var readLast = BenchmarkRunner.Run<ReadLast>();
-            //var readSingleSpecific = BenchmarkRunner.Run<ReadSingleSpecific>();
+            var readAll = BenchmarkRunner.Run<ReadAll>();
+            var readSingleRandom = BenchmarkRunner.Run<ReadSingleRandom>();
+            var readFirst = BenchmarkRunner.Run<ReadFirst>();
+            var readLast = BenchmarkRunner.Run<ReadLast>();
+            var readSingleSpecific = BenchmarkRunner.Run<ReadSingleSpecific>();
             var writeAll = BenchmarkRunner.Run<WriteAll>();
+            var dictionaryToStack = BenchmarkRunner.Run<CopyDictionaryToStack>();
 
-            //var loops = BenchmarkRunner.Run<LoopAllElements>();
+            var loops = BenchmarkRunner.Run<LoopAllElements>();
         }
     }
 }
