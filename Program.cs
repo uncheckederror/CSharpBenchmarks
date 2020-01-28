@@ -503,6 +503,81 @@ namespace MyBenchmarks
     }
 
     /// <summary>
+    /// Does dumping a data structure to an array before looping over it improve performance?
+    /// </summary>
+    public class DataStructureToArrayForeach
+    {
+        private Dictionary<int, SimpleObject> dictionary;
+        private List<SimpleObject> list;
+
+        [Params(10, 100, 1000, 10000, 100000, 1000000)]
+        public int N;
+
+        [GlobalSetup]
+        public void Setup()
+        {
+            var random = new Random();
+            dictionary = new Dictionary<int, SimpleObject>();
+            list = new List<SimpleObject>();
+
+            // Fill each data structure with the same random ints.
+            for (var i = 0; i < N; i++)
+            {
+                var randomInt = random.Next();
+                list.Add(new SimpleObject { Id = i, Data = randomInt });
+                dictionary.Add(i, new SimpleObject { Id = i, Data = randomInt });
+            }
+        }
+
+        [Benchmark]
+        public void ListForeach()
+        {
+            foreach (var item in list)
+            {
+                _ = item.Data;
+            }
+        }
+
+        [Benchmark]
+        public void ListToArrayForeach()
+        {
+            // .ToArray() use the Array.Copy method to create a new array before iterating over it.
+            // https://docs.microsoft.com/en-us/dotnet/api/system.array.copy?view=netcore-3.1
+            foreach (var item in list.ToArray())
+            {
+                _ = item.Data;
+            }
+        }
+
+        [Benchmark]
+        public void DictionaryForeach()
+        {
+            foreach (var item in dictionary)
+            {
+                _ = item.Value.Data;
+            }
+        }
+
+        [Benchmark]
+        public void DictionaryValuesToArrayForeach()
+        {
+            foreach (var item in dictionary.Values.ToArray())
+            {
+                _ = item.Data;
+            }
+        }
+
+        [Benchmark]
+        public void DictionaryToArrayForeach()
+        {
+            foreach (var item in dictionary.ToArray())
+            {
+                _ = item.Value.Data;
+            }
+        }
+    }
+
+    /// <summary>
     /// Compares the performance of loops.
     /// </summary>
     public class LoopAllElements
@@ -585,15 +660,16 @@ namespace MyBenchmarks
     {
         public static void Main(string[] args)
         {
-            var readAll = BenchmarkRunner.Run<ReadAll>();
-            var readSingleRandom = BenchmarkRunner.Run<ReadSingleRandom>();
-            var readFirst = BenchmarkRunner.Run<ReadFirst>();
-            var readLast = BenchmarkRunner.Run<ReadLast>();
-            var readSingleSpecific = BenchmarkRunner.Run<ReadSingleSpecific>();
-            var writeAll = BenchmarkRunner.Run<WriteAll>();
-            var dictionaryToStack = BenchmarkRunner.Run<CopyDictionaryToStack>();
+            //var readAll = BenchmarkRunner.Run<ReadAll>();
+            //var readSingleRandom = BenchmarkRunner.Run<ReadSingleRandom>();
+            //var readFirst = BenchmarkRunner.Run<ReadFirst>();
+            //var readLast = BenchmarkRunner.Run<ReadLast>();
+            //var readSingleSpecific = BenchmarkRunner.Run<ReadSingleSpecific>();
+            //var writeAll = BenchmarkRunner.Run<WriteAll>();
+            //var dictionaryToStack = BenchmarkRunner.Run<CopyDictionaryToStack>();
+            var toArray = BenchmarkRunner.Run<DataStructureToArrayForeach>();
 
-            var loops = BenchmarkRunner.Run<LoopAllElements>();
+            //var loops = BenchmarkRunner.Run<LoopAllElements>();
         }
     }
 }
