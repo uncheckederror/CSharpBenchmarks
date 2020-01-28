@@ -163,6 +163,47 @@
 * Using a Foreach loop is 2.14 times faster when N = 10 and 2 times as faster when N = 1M.
 * Using an intermediate varible in a Linq Select loop has no performance impact when N = 10 and a 9% performance hit when N = 1M.
 
+# Loop Over All Elements After using To Array
+
+|                         Method |       N |             Mean |         Error |        StdDev |
+|------------------------------- |-------- |-----------------:|--------------:|--------------:|
+|                    ListForeach |      10 |         61.92 ns |      0.626 ns |      0.585 ns |
+|             ListToArrayForeach |      10 |         45.29 ns |      0.681 ns |      0.637 ns |
+|              DictionaryForeach |      10 |         93.86 ns |      0.387 ns |      0.362 ns |
+| DictionaryValuesToArrayForeach |      10 |        107.17 ns |      0.676 ns |      0.632 ns |
+|       DictionaryToArrayForeach |      10 |        130.74 ns |      0.402 ns |      0.376 ns |
+|                    ListForeach |     100 |        569.33 ns |      1.290 ns |      1.206 ns |
+|             ListToArrayForeach |     100 |        203.23 ns |      4.028 ns |      3.768 ns |
+|              DictionaryForeach |     100 |        712.90 ns |      3.466 ns |      3.073 ns |
+| DictionaryValuesToArrayForeach |     100 |        633.53 ns |      7.852 ns |      7.345 ns |
+|       DictionaryToArrayForeach |     100 |        859.16 ns |     14.748 ns |     13.795 ns |
+|                    ListForeach |    1000 |      5,141.54 ns |     15.534 ns |     13.771 ns |
+|             ListToArrayForeach |    1000 |      2,405.03 ns |     23.796 ns |     22.259 ns |
+|              DictionaryForeach |    1000 |      6,702.36 ns |     14.731 ns |     13.059 ns |
+| DictionaryValuesToArrayForeach |    1000 |      6,197.31 ns |     38.282 ns |     33.936 ns |
+|       DictionaryToArrayForeach |    1000 |      7,910.41 ns |     64.179 ns |     60.033 ns |
+|                    ListForeach |   10000 |     51,651.88 ns |    117.032 ns |    109.472 ns |
+|             ListToArrayForeach |   10000 |     31,625.13 ns |    373.900 ns |    331.453 ns |
+|              DictionaryForeach |   10000 |     63,577.88 ns |    141.447 ns |    125.389 ns |
+| DictionaryValuesToArrayForeach |   10000 |     68,327.04 ns |    320.004 ns |    283.675 ns |
+|       DictionaryToArrayForeach |   10000 |    161,075.23 ns |    172.196 ns |    143.792 ns |
+|                    ListForeach |  100000 |    518,249.43 ns |  1,026.977 ns |    910.388 ns |
+|             ListToArrayForeach |  100000 |    643,930.78 ns |  3,665.017 ns |  3,248.942 ns |
+|              DictionaryForeach |  100000 |    636,572.70 ns |  1,453.210 ns |  1,213.496 ns |
+| DictionaryValuesToArrayForeach |  100000 |    782,614.11 ns |  2,417.300 ns |  2,261.144 ns |
+|       DictionaryToArrayForeach |  100000 |  1,050,364.90 ns | 15,027.710 ns | 12,548.818 ns |
+|                    ListForeach | 1000000 |  6,242,416.56 ns | 16,587.237 ns | 15,515.711 ns |
+|             ListToArrayForeach | 1000000 |  8,738,826.09 ns | 16,823.161 ns | 15,736.396 ns |
+|              DictionaryForeach | 1000000 |  7,074,277.34 ns |  6,983.773 ns |  6,190.933 ns |
+| DictionaryValuesToArrayForeach | 1000000 | 13,649,311.30 ns | 57,223.201 ns | 53,526.618 ns |
+|       DictionaryToArrayForeach | 1000000 | 16,670,468.75 ns | 56,839.783 ns | 44,376.764 ns |
+
+* When N < 100,000 using the ToArray method on a List and then looping over its result is faster than simply looping over the List.
+
+* Theory: The degrading performance of the List.ToArray version could be because it uses Array.CopyTo under the hood which will use twice as much memory as simply looping over the List. The larger object sizes could be forcing these data structures on to the Large Object Heap and inducing more intervention from the Garbage Collector. This could be confirmed by profiling the memory consumption and garbage collections of these benchmarks.
+
+* It's always faster to just foreach over a Dictioinary than it is to extract its elements and then loop over them.
+
 # Loop Over All Elements in an Array
 |      Method |       N |             Mean |          Error |         StdDev |
 |------------ |-------- |-----------------:|---------------:|---------------:|
