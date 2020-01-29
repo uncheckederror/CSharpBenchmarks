@@ -165,38 +165,38 @@
 
 # Loop Over All Elements After using To Array
 
-|                         Method |       N |             Mean |         Error |        StdDev |
-|------------------------------- |-------- |-----------------:|--------------:|--------------:|
-|                    ListForeach |      10 |         61.92 ns |      0.626 ns |      0.585 ns |
-|             ListToArrayForeach |      10 |         45.29 ns |      0.681 ns |      0.637 ns |
-|              DictionaryForeach |      10 |         93.86 ns |      0.387 ns |      0.362 ns |
-| DictionaryValuesToArrayForeach |      10 |        107.17 ns |      0.676 ns |      0.632 ns |
-|       DictionaryToArrayForeach |      10 |        130.74 ns |      0.402 ns |      0.376 ns |
-|                    ListForeach |     100 |        569.33 ns |      1.290 ns |      1.206 ns |
-|             ListToArrayForeach |     100 |        203.23 ns |      4.028 ns |      3.768 ns |
-|              DictionaryForeach |     100 |        712.90 ns |      3.466 ns |      3.073 ns |
-| DictionaryValuesToArrayForeach |     100 |        633.53 ns |      7.852 ns |      7.345 ns |
-|       DictionaryToArrayForeach |     100 |        859.16 ns |     14.748 ns |     13.795 ns |
-|                    ListForeach |    1000 |      5,141.54 ns |     15.534 ns |     13.771 ns |
-|             ListToArrayForeach |    1000 |      2,405.03 ns |     23.796 ns |     22.259 ns |
-|              DictionaryForeach |    1000 |      6,702.36 ns |     14.731 ns |     13.059 ns |
-| DictionaryValuesToArrayForeach |    1000 |      6,197.31 ns |     38.282 ns |     33.936 ns |
-|       DictionaryToArrayForeach |    1000 |      7,910.41 ns |     64.179 ns |     60.033 ns |
-|                    ListForeach |   10000 |     51,651.88 ns |    117.032 ns |    109.472 ns |
-|             ListToArrayForeach |   10000 |     31,625.13 ns |    373.900 ns |    331.453 ns |
-|              DictionaryForeach |   10000 |     63,577.88 ns |    141.447 ns |    125.389 ns |
-| DictionaryValuesToArrayForeach |   10000 |     68,327.04 ns |    320.004 ns |    283.675 ns |
-|       DictionaryToArrayForeach |   10000 |    161,075.23 ns |    172.196 ns |    143.792 ns |
-|                    ListForeach |  100000 |    518,249.43 ns |  1,026.977 ns |    910.388 ns |
-|             ListToArrayForeach |  100000 |    643,930.78 ns |  3,665.017 ns |  3,248.942 ns |
-|              DictionaryForeach |  100000 |    636,572.70 ns |  1,453.210 ns |  1,213.496 ns |
-| DictionaryValuesToArrayForeach |  100000 |    782,614.11 ns |  2,417.300 ns |  2,261.144 ns |
-|       DictionaryToArrayForeach |  100000 |  1,050,364.90 ns | 15,027.710 ns | 12,548.818 ns |
-|                    ListForeach | 1000000 |  6,242,416.56 ns | 16,587.237 ns | 15,515.711 ns |
-|             ListToArrayForeach | 1000000 |  8,738,826.09 ns | 16,823.161 ns | 15,736.396 ns |
-|              DictionaryForeach | 1000000 |  7,074,277.34 ns |  6,983.773 ns |  6,190.933 ns |
-| DictionaryValuesToArrayForeach | 1000000 | 13,649,311.30 ns | 57,223.201 ns | 53,526.618 ns |
-|       DictionaryToArrayForeach | 1000000 | 16,670,468.75 ns | 56,839.783 ns | 44,376.764 ns |
+|                         Method |       N |             Mean |          Error |         StdDev |   Gen 0 |   Gen 1 |   Gen 2 |  Allocated |
+|------------------------------- |-------- |-----------------:|---------------:|---------------:|--------:|--------:|--------:|-----------:|
+|                    ListForeach |      10 |         59.51 ns |       1.242 ns |       1.479 ns |       - |       - |       - |          - |
+|             ListToArrayForeach |      10 |         44.50 ns |       0.421 ns |       0.373 ns |  0.0099 |       - |       - |      104 B |
+|              DictionaryForeach |      10 |         93.68 ns |       1.289 ns |       1.206 ns |       - |       - |       - |          - |
+| DictionaryValuesToArrayForeach |      10 |        105.72 ns |       0.722 ns |       0.603 ns |  0.0099 |       - |       - |      104 B |
+|       DictionaryToArrayForeach |      10 |        130.14 ns |       0.538 ns |       0.503 ns |  0.0174 |       - |       - |      184 B |
+|                    ListForeach |     100 |        531.67 ns |       0.470 ns |       0.439 ns |       - |       - |       - |          - |
+|             ListToArrayForeach |     100 |        197.21 ns |       2.681 ns |       2.508 ns |  0.0787 |       - |       - |      824 B |
+|              DictionaryForeach |     100 |        712.14 ns |       2.195 ns |       1.946 ns |       - |       - |       - |          - |
+| DictionaryValuesToArrayForeach |     100 |        631.58 ns |       3.862 ns |       3.225 ns |  0.0782 |       - |       - |      824 B |
+|       DictionaryToArrayForeach |     100 |        842.79 ns |       5.757 ns |       5.104 ns |  0.1545 |       - |       - |     1624 B |
+|                    ListForeach |    1000 |      5,499.52 ns |      27.582 ns |      24.451 ns |       - |       - |       - |          - |
+|             ListToArrayForeach |    1000 |      2,384.59 ns |      14.385 ns |      12.752 ns |  0.7668 |       - |       - |     8024 B |
+|              DictionaryForeach |    1000 |      6,728.26 ns |      63.305 ns |      59.215 ns |       - |       - |       - |          - |
+| DictionaryValuesToArrayForeach |    1000 |      6,207.76 ns |      31.319 ns |      27.764 ns |  0.7629 |       - |       - |     8024 B |
+|       DictionaryToArrayForeach |    1000 |      8,192.87 ns |      36.321 ns |      33.975 ns |  1.5259 |       - |       - |    16024 B |
+|                    ListForeach |   10000 |     51,189.58 ns |     152.732 ns |     127.538 ns |       - |       - |       - |          - |
+|             ListToArrayForeach |   10000 |     31,273.19 ns |     163.439 ns |     152.881 ns |  7.6294 |       - |       - |    80025 B |
+|              DictionaryForeach |   10000 |     63,149.54 ns |      26.116 ns |      24.428 ns |       - |       - |       - |          - |
+| DictionaryValuesToArrayForeach |   10000 |     68,081.66 ns |     173.836 ns |     162.606 ns |  7.5684 |       - |       - |    80025 B |
+|       DictionaryToArrayForeach |   10000 |    163,897.22 ns |     891.283 ns |     833.707 ns | 49.8047 | 49.8047 | 49.8047 |   160025 B |
+|                    ListForeach |  100000 |    515,107.94 ns |     671.571 ns |     628.188 ns |       - |       - |       - |          - |
+|             ListToArrayForeach |  100000 |    643,289.06 ns |   3,328.741 ns |   3,113.706 ns | 25.3906 | 25.3906 | 25.3906 |   800026 B |
+|              DictionaryForeach |  100000 |    634,093.07 ns |   1,589.341 ns |   1,408.910 ns |       - |       - |       - |        7 B |
+| DictionaryValuesToArrayForeach |  100000 |    788,784.90 ns |  10,006.459 ns |   9,360.048 ns | 67.3828 | 67.3828 | 67.3828 |   800018 B |
+|       DictionaryToArrayForeach |  100000 |  1,001,216.33 ns |  15,421.245 ns |  12,877.438 ns | 74.2188 | 74.2188 | 74.2188 |  1600019 B |
+|                    ListForeach | 1000000 |  6,282,542.40 ns |  13,524.965 ns |  12,651.260 ns |       - |       - |       - |          - |
+|             ListToArrayForeach | 1000000 |  8,787,632.14 ns |  62,242.102 ns |  55,176.002 ns | 31.2500 | 31.2500 | 31.2500 |  8000022 B |
+|              DictionaryForeach | 1000000 |  7,037,605.08 ns |  26,557.130 ns |  24,841.556 ns |       - |       - |       - |          - |
+| DictionaryValuesToArrayForeach | 1000000 | 13,795,614.29 ns | 116,910.615 ns | 103,638.215 ns | 62.5000 | 62.5000 | 62.5000 |  8000022 B |
+|       DictionaryToArrayForeach | 1000000 | 16,650,591.04 ns |  50,160.654 ns |  46,920.307 ns | 62.5000 | 62.5000 | 62.5000 | 16000022 B |
 
 * When N < 100,000 using the ToArray method on a List and then looping over its result is faster than simply looping over the List.
 
