@@ -139,26 +139,26 @@
 | DictionaryTryAdd | 1000000 | 36,037,202.55 ns |  86,442.858 ns |  76,629.342 ns |
 
 # Copy Dictionary Values to a Stack
-|                 Method |       N |            Mean |        Error |       StdDev |
-|----------------------- |-------- |----------------:|-------------:|-------------:|
-|                ForEach |      10 |        116.5 ns |      0.33 ns |      0.30 ns |
-|             LinqSelect |      10 |        249.7 ns |      1.29 ns |      1.21 ns |
-| LinqSelectIntermediate |      10 |        252.5 ns |      1.22 ns |      1.08 ns |
-|                ForEach |     100 |        689.9 ns |      2.42 ns |      2.27 ns |
-|             LinqSelect |     100 |      1,501.2 ns |      4.93 ns |      4.37 ns |
-| LinqSelectIntermediate |     100 |      1,447.6 ns |      5.66 ns |      5.29 ns |
-|                ForEach |    1000 |      5,234.4 ns |     61.17 ns |     57.22 ns |
-|             LinqSelect |    1000 |     14,662.9 ns |    230.60 ns |    215.70 ns |
-| LinqSelectIntermediate |    1000 |     13,203.0 ns |     59.09 ns |     49.34 ns |
-|                ForEach |   10000 |     55,455.1 ns |    317.70 ns |    297.17 ns |
-|             LinqSelect |   10000 |    148,531.2 ns |    710.57 ns |    554.77 ns |
-| LinqSelectIntermediate |   10000 |    127,066.6 ns |    800.17 ns |    748.48 ns |
-|                ForEach |  100000 |    565,574.7 ns |  2,624.18 ns |  2,326.27 ns |
-|             LinqSelect |  100000 |  1,545,944.7 ns | 30,409.13 ns | 28,444.72 ns |
-| LinqSelectIntermediate |  100000 |  1,429,165.3 ns | 27,404.38 ns | 28,142.28 ns |
-|                ForEach | 1000000 |  8,116,902.7 ns | 26,836.76 ns | 25,103.13 ns |
-|             LinqSelect | 1000000 | 15,934,311.4 ns | 59,427.68 ns | 55,588.69 ns |
-| LinqSelectIntermediate | 1000000 | 17,450,616.1 ns | 59,623.95 ns | 52,855.08 ns |
+|                 Method |       N |            Mean |         Error |        StdDev |    Gen 0 |    Gen 1 |    Gen 2 |  Allocated |
+|----------------------- |-------- |----------------:|--------------:|--------------:|---------:|---------:|---------:|-----------:|
+|                ForEach |      10 |        225.6 ns |       4.35 ns |       4.28 ns |   0.0205 |        - |        - |      216 B |
+|             LinqSelect |      10 |        460.3 ns |       6.10 ns |       5.40 ns |   0.0296 |        - |        - |      312 B |
+| LinqSelectIntermediate |      10 |        489.9 ns |       8.02 ns |       7.11 ns |   0.0401 |        - |        - |      424 B |
+|                ForEach |     100 |      1,264.8 ns |      24.48 ns |      32.68 ns |   0.1125 |        - |        - |     1184 B |
+|             LinqSelect |     100 |      2,818.9 ns |      10.88 ns |       9.09 ns |   0.1221 |        - |        - |     1280 B |
+| LinqSelectIntermediate |     100 |      2,792.3 ns |      44.31 ns |      41.45 ns |   0.1984 |        - |        - |     2112 B |
+|                ForEach |    1000 |      9,700.1 ns |     148.59 ns |     124.08 ns |   0.7935 |   0.0153 |        - |     8424 B |
+|             LinqSelect |    1000 |     27,447.0 ns |     148.41 ns |     123.93 ns |   0.7935 |        - |        - |     8520 B |
+| LinqSelectIntermediate |    1000 |     24,636.1 ns |     385.38 ns |     321.81 ns |   1.5564 |   0.0610 |        - |    16552 B |
+|                ForEach |   10000 |    108,557.5 ns |   2,143.56 ns |   3,273.44 ns |  12.4512 |   2.4414 |        - |   131400 B |
+|             LinqSelect |   10000 |    277,094.5 ns |   4,523.74 ns |   4,231.51 ns |  12.2070 |   1.9531 |        - |   131496 B |
+| LinqSelectIntermediate |   10000 |    244,094.5 ns |   3,105.54 ns |   2,904.92 ns |  20.0195 |   6.3477 |        - |   211528 B |
+|                ForEach |  100000 |  1,071,301.5 ns |  14,155.48 ns |  13,241.04 ns | 158.2031 | 146.4844 | 146.4844 |  1049727 B |
+|             LinqSelect |  100000 |  2,749,630.3 ns |  19,226.19 ns |  16,054.74 ns | 183.5938 | 171.8750 | 171.8750 |  1049087 B |
+| LinqSelectIntermediate |  100000 |  2,451,562.1 ns |  12,058.18 ns |  10,689.26 ns | 250.0000 | 238.2813 | 238.2813 |  1849206 B |
+|                ForEach | 1000000 | 13,343,144.1 ns |  80,963.98 ns |  71,772.46 ns |  62.5000 |  62.5000 |  62.5000 |  8389326 B |
+|             LinqSelect | 1000000 | 29,841,091.7 ns | 551,582.72 ns | 515,950.82 ns |  62.5000 |  62.5000 |  62.5000 |  8389184 B |
+| LinqSelectIntermediate | 1000000 | 29,366,898.8 ns | 466,779.27 ns | 436,625.62 ns | 125.0000 | 125.0000 | 125.0000 | 16389701 B |
 
 * Using a Foreach loop is 2.14 times faster when N = 10 and 2 times as faster when N = 1M.
 * Using an intermediate varible in a Linq Select loop has no performance impact when N = 10 and a 9% performance hit when N = 1M.
