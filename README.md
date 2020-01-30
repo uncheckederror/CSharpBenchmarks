@@ -2,32 +2,32 @@
  Identify and compare the performance of loops and data structures in dotnet.
 
 # Read All Elements
-|     Method |       N |             Mean |         Error |        StdDev |           Median |
-|----------- |-------- |-----------------:|--------------:|--------------:|-----------------:|
-|      Array |      10 |         6.161 ns |     0.0545 ns |     0.0509 ns |         6.156 ns |
-|       List |      10 |        39.898 ns |     0.1211 ns |     0.1133 ns |        39.835 ns |
-| Dictionary |      10 |        47.190 ns |     1.0198 ns |     1.4948 ns |        46.409 ns |
-| Enumerable |      10 |        85.217 ns |     0.3046 ns |     0.2850 ns |        85.210 ns |
-|      Array |     100 |        87.554 ns |     0.2505 ns |     0.2343 ns |        87.460 ns |
-|       List |     100 |       357.676 ns |     0.5226 ns |     0.4633 ns |       357.746 ns |
-| Dictionary |     100 |       397.316 ns |     1.0573 ns |     0.9890 ns |       396.832 ns |
-| Enumerable |     100 |       704.775 ns |     0.2638 ns |     0.2339 ns |       704.722 ns |
-|      Array |    1000 |       801.526 ns |     2.2094 ns |     2.0667 ns |       800.401 ns |
-|       List |    1000 |     3,386.507 ns |     4.5155 ns |     3.7707 ns |     3,387.556 ns |
-| Dictionary |    1000 |     3,798.016 ns |     2.5356 ns |     2.1174 ns |     3,798.638 ns |
-| Enumerable |    1000 |     6,741.304 ns |     3.1531 ns |     2.7951 ns |     6,742.274 ns |
-|      Array |   10000 |     7,949.929 ns |     1.1246 ns |     0.9969 ns |     7,949.983 ns |
-|       List |   10000 |    33,555.789 ns |     5.6099 ns |     4.6845 ns |    33,556.555 ns |
-| Dictionary |   10000 |    37,776.747 ns |    19.2130 ns |    16.0437 ns |    37,772.565 ns |
-| Enumerable |   10000 |    67,145.710 ns |    51.2869 ns |    45.4645 ns |    67,130.145 ns |
-|      Array |  100000 |    79,946.232 ns |    87.9432 ns |    82.2621 ns |    79,913.831 ns |
-|       List |  100000 |   335,403.868 ns |    94.0990 ns |    83.4164 ns |   335,412.427 ns |
-| Dictionary |  100000 |   377,354.475 ns |   152.1656 ns |   134.8908 ns |   377,293.213 ns |
-| Enumerable |  100000 |   670,825.321 ns |   136.3426 ns |   120.8642 ns |   670,817.920 ns |
-|      Array | 1000000 |   801,527.434 ns |   468.8102 ns |   391.4778 ns |   801,441.992 ns |
-|       List | 1000000 | 3,354,368.359 ns |   736.7150 ns |   615.1904 ns | 3,354,263.281 ns |
-| Dictionary | 1000000 | 3,823,237.500 ns | 3,331.5829 ns | 2,782.0226 ns | 3,822,852.344 ns |
-| Enumerable | 1000000 | 6,709,897.489 ns | 1,196.0691 ns | 1,060.2841 ns | 6,709,939.062 ns |
+|     Method |       N |             Mean |          Error |         StdDev |  Gen 0 | Gen 1 | Gen 2 | Allocated |
+|----------- |-------- |-----------------:|---------------:|---------------:|-------:|------:|------:|----------:|
+|      Array |      10 |         8.462 ns |      0.1004 ns |      0.0939 ns |      - |     - |     - |         - |
+|       List |      10 |        37.746 ns |      0.5316 ns |      0.4972 ns |      - |     - |     - |         - |
+| Dictionary |      10 |        45.030 ns |      0.5924 ns |      0.5541 ns |      - |     - |     - |         - |
+| Enumerable |      10 |        92.544 ns |      1.8599 ns |      1.8266 ns | 0.0030 |     - |     - |      32 B |
+|      Array |     100 |        88.140 ns |      0.2264 ns |      0.2118 ns |      - |     - |     - |         - |
+|       List |     100 |       325.107 ns |      0.4612 ns |      0.4088 ns |      - |     - |     - |         - |
+| Dictionary |     100 |       398.824 ns |      5.3828 ns |      4.7717 ns |      - |     - |     - |         - |
+| Enumerable |     100 |       791.363 ns |      0.7508 ns |      0.6269 ns | 0.0029 |     - |     - |      32 B |
+|      Array |    1000 |       799.742 ns |      1.1529 ns |      0.9627 ns |      - |     - |     - |         - |
+|       List |    1000 |     3,129.860 ns |     30.2348 ns |     28.2816 ns |      - |     - |     - |         - |
+| Dictionary |    1000 |     3,802.089 ns |      6.8087 ns |      5.6856 ns |      - |     - |     - |         - |
+| Enumerable |    1000 |     7,557.364 ns |     14.4488 ns |     11.2807 ns |      - |     - |     - |      32 B |
+|      Array |   10000 |     7,958.463 ns |     13.5116 ns |     11.9777 ns |      - |     - |     - |         - |
+|       List |   10000 |    31,219.201 ns |    333.8981 ns |    295.9920 ns |      - |     - |     - |         - |
+| Dictionary |   10000 |    37,876.099 ns |    114.4200 ns |    107.0285 ns |      - |     - |     - |         - |
+| Enumerable |   10000 |    75,158.884 ns |     70.4157 ns |     62.4217 ns |      - |     - |     - |      32 B |
+|      Array |  100000 |    80,106.295 ns |    418.6813 ns |    391.6347 ns |      - |     - |     - |         - |
+|       List |  100000 |   310,237.252 ns |    315.2137 ns |    263.2177 ns |      - |     - |     - |       1 B |
+| Dictionary |  100000 |   377,772.063 ns |    374.2141 ns |    331.7310 ns |      - |     - |     - |       1 B |
+| Enumerable |  100000 |   750,889.481 ns |  1,095.9584 ns |    971.5385 ns |      - |     - |     - |      33 B |
+|      Array | 1000000 |   808,059.982 ns |  4,516.5571 ns |  4,003.8103 ns |      - |     - |     - |       1 B |
+|       List | 1000000 | 3,108,008.650 ns |  2,550.8694 ns |  2,261.2793 ns |      - |     - |     - |       5 B |
+| Dictionary | 1000000 | 3,858,242.020 ns | 11,047.8311 ns |  9,793.6145 ns |      - |     - |     - |       5 B |
+| Enumerable | 1000000 | 7,547,736.458 ns | 54,061.0389 ns | 50,568.7293 ns |      - |     - |     - |      42 B |
 
 * Array's are the fastest data structure to read all elements from.
 * Lists are 6.5 times slower when N = 10 and 4.15 times slower when N = 1M.
@@ -35,46 +35,46 @@
 * Using the IEnumerable interface on top of an Array is 14 times slower when N = 10 and 8.3 times slower when N = 1M.
 
 # Read a Random Element
-|     Method |       N |     Mean |    Error |   StdDev |   Median |
-|----------- |-------- |---------:|---------:|---------:|---------:|
-|      Array |      10 | 18.18 ns | 0.016 ns | 0.014 ns | 18.19 ns |
-|       List |      10 | 18.28 ns | 0.006 ns | 0.005 ns | 18.28 ns |
-| Dictionary |      10 | 32.07 ns | 0.375 ns | 0.351 ns | 31.80 ns |
-| Enumerable |      10 | 62.18 ns | 0.742 ns | 0.694 ns | 61.85 ns |
-|      Array |     100 | 18.49 ns | 0.006 ns | 0.005 ns | 18.48 ns |
-|       List |     100 | 18.73 ns | 0.006 ns | 0.006 ns | 18.73 ns |
-| Dictionary |     100 | 31.79 ns | 0.012 ns | 0.010 ns | 31.78 ns |
-| Enumerable |     100 | 62.34 ns | 0.907 ns | 0.849 ns | 62.38 ns |
-|      Array |    1000 | 18.49 ns | 0.009 ns | 0.008 ns | 18.49 ns |
-|       List |    1000 | 18.28 ns | 0.004 ns | 0.004 ns | 18.28 ns |
-| Dictionary |    1000 | 31.31 ns | 0.007 ns | 0.006 ns | 31.31 ns |
-| Enumerable |    1000 | 64.46 ns | 0.188 ns | 0.166 ns | 64.39 ns |
-|      Array |   10000 | 18.19 ns | 0.007 ns | 0.006 ns | 18.19 ns |
-|       List |   10000 | 19.15 ns | 0.038 ns | 0.035 ns | 19.12 ns |
-| Dictionary |   10000 | 33.23 ns | 0.471 ns | 0.417 ns | 33.44 ns |
-| Enumerable |   10000 | 62.00 ns | 0.822 ns | 0.769 ns | 61.56 ns |
-|      Array |  100000 | 19.11 ns | 0.179 ns | 0.159 ns | 19.17 ns |
-|       List |  100000 | 19.72 ns | 0.431 ns | 0.513 ns | 19.44 ns |
-| Dictionary |  100000 | 43.44 ns | 0.914 ns | 0.939 ns | 42.69 ns |
-| Enumerable |  100000 | 62.32 ns | 0.850 ns | 0.795 ns | 61.88 ns |
-|      Array | 1000000 | 20.10 ns | 0.298 ns | 0.264 ns | 20.22 ns |
-|       List | 1000000 | 20.16 ns | 0.025 ns | 0.023 ns | 20.15 ns |
-| Dictionary | 1000000 | 72.44 ns | 1.280 ns | 1.198 ns | 72.15 ns |
-| Enumerable | 1000000 | 63.78 ns | 0.770 ns | 0.720 ns | 63.55 ns |
+|     Method |       N |     Mean |    Error |   StdDev | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|----------- |-------- |---------:|---------:|---------:|------:|------:|------:|----------:|
+|      Array |      10 | 18.16 ns | 0.010 ns | 0.008 ns |     - |     - |     - |         - |
+|       List |      10 | 18.74 ns | 0.016 ns | 0.014 ns |     - |     - |     - |         - |
+| Dictionary |      10 | 32.67 ns | 0.177 ns | 0.148 ns |     - |     - |     - |         - |
+| Enumerable |      10 | 62.17 ns | 0.026 ns | 0.020 ns |     - |     - |     - |         - |
+|      Array |     100 | 18.17 ns | 0.019 ns | 0.018 ns |     - |     - |     - |         - |
+|       List |     100 | 18.86 ns | 0.214 ns | 0.200 ns |     - |     - |     - |         - |
+| Dictionary |     100 | 31.64 ns | 0.546 ns | 0.510 ns |     - |     - |     - |         - |
+| Enumerable |     100 | 61.26 ns | 0.315 ns | 0.279 ns |     - |     - |     - |         - |
+|      Array |    1000 | 18.16 ns | 0.010 ns | 0.009 ns |     - |     - |     - |         - |
+|       List |    1000 | 18.86 ns | 0.195 ns | 0.173 ns |     - |     - |     - |         - |
+| Dictionary |    1000 | 31.34 ns | 0.018 ns | 0.017 ns |     - |     - |     - |         - |
+| Enumerable |    1000 | 61.25 ns | 0.240 ns | 0.213 ns |     - |     - |     - |         - |
+|      Array |   10000 | 18.53 ns | 0.010 ns | 0.008 ns |     - |     - |     - |         - |
+|       List |   10000 | 19.18 ns | 0.426 ns | 0.418 ns |     - |     - |     - |         - |
+| Dictionary |   10000 | 32.61 ns | 0.018 ns | 0.015 ns |     - |     - |     - |         - |
+| Enumerable |   10000 | 61.20 ns | 0.225 ns | 0.188 ns |     - |     - |     - |         - |
+|      Array |  100000 | 19.06 ns | 0.007 ns | 0.006 ns |     - |     - |     - |         - |
+|       List |  100000 | 20.85 ns | 0.412 ns | 0.386 ns |     - |     - |     - |         - |
+| Dictionary |  100000 | 42.78 ns | 0.169 ns | 0.150 ns |     - |     - |     - |         - |
+| Enumerable |  100000 | 61.56 ns | 0.298 ns | 0.249 ns |     - |     - |     - |         - |
+|      Array | 1000000 | 20.51 ns | 0.394 ns | 0.369 ns |     - |     - |     - |         - |
+|       List | 1000000 | 20.01 ns | 0.285 ns | 0.267 ns |     - |     - |     - |         - |
+| Dictionary | 1000000 | 86.46 ns | 1.564 ns | 1.463 ns |     - |     - |     - |         - |
+| Enumerable | 1000000 | 66.15 ns | 1.372 ns | 1.409 ns |     - |     - |     - |         - |
 
 # Read the First Element
-|     Method |       N |       Mean |     Error |    StdDev |
-|----------- |-------- |-----------:|----------:|----------:|
-|      Array | 1000000 |  0.4473 ns | 0.0008 ns | 0.0006 ns |
-|       List | 1000000 |  0.4450 ns | 0.0002 ns | 0.0002 ns |
-| Enumerable | 1000000 | 43.8761 ns | 0.3056 ns | 0.2709 ns |
+|     Method |       N |       Mean |     Error |    StdDev | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|----------- |-------- |-----------:|----------:|----------:|------:|------:|------:|----------:|
+|      Array | 1000000 |  0.4420 ns | 0.0090 ns | 0.0080 ns |     - |     - |     - |         - |
+|       List | 1000000 |  0.4546 ns | 0.0160 ns | 0.0142 ns |     - |     - |     - |         - |
+| Enumerable | 1000000 | 42.8946 ns | 0.0515 ns | 0.0457 ns |     - |     - |     - |         - |
 
 # Read the Last Element
-|     Method |       N |       Mean |     Error |    StdDev |
-|----------- |-------- |-----------:|----------:|----------:|
-|      Array | 1000000 |  0.5257 ns | 0.0018 ns | 0.0017 ns |
-|       List | 1000000 |  0.4024 ns | 0.0013 ns | 0.0011 ns |
-| Enumerable | 1000000 | 43.7647 ns | 0.1312 ns | 0.1096 ns |
+|     Method |       N |       Mean |     Error |    StdDev |     Median | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|----------- |-------- |-----------:|----------:|----------:|-----------:|------:|------:|------:|----------:|
+|      Array | 1000000 |  0.0031 ns | 0.0052 ns | 0.0049 ns |  0.0000 ns |     - |     - |     - |         - |
+|       List | 1000000 |  0.5693 ns | 0.0017 ns | 0.0015 ns |  0.5689 ns |     - |     - |     - |         - |
+| Enumerable | 1000000 | 43.1204 ns | 0.2835 ns | 0.2652 ns | 43.0264 ns |     - |     - |     - |         - |
 
 # Read a Specific Element
 |     Method |       N |             Mean |          Error |         StdDev |  Gen 0 | Gen 1 | Gen 2 | Allocated |
