@@ -9,6 +9,7 @@ namespace MyBenchmarks
     /// <summary>
     /// Compares the read all performance of Data Structures.
     /// </summary>
+    [MemoryDiagnoser]
     public class ReadAll
     {
         private int[] array;
@@ -85,6 +86,7 @@ namespace MyBenchmarks
     /// <summary>
     /// Compares the random single read performance of Data Structures.
     /// </summary>
+    [MemoryDiagnoser]
     public class ReadSingleRandom
     {
         private int[] array;
@@ -152,6 +154,7 @@ namespace MyBenchmarks
     /// <summary>
     /// Compares the performance of reading just the first element in a Data Structure.
     /// </summary>
+    [MemoryDiagnoser]
     public class ReadFirst
     {
         private int[] array;
@@ -215,6 +218,7 @@ namespace MyBenchmarks
     /// <summary>
     /// Compares the performance of reading just the last element in a Data Structure.
     /// </summary>
+    [MemoryDiagnoser]
     public class ReadLast
     {
         private int[] array;
@@ -278,6 +282,7 @@ namespace MyBenchmarks
     /// <summary>
     /// Compares the performance of reading a single known element in a Data Structure.
     /// </summary>
+    [MemoryDiagnoser]
     public class ReadSingleSpecific
     {
         private int[] array;
@@ -362,6 +367,7 @@ namespace MyBenchmarks
     /// <summary>
     /// Compares the performance of inserting all elements from an Array into a DataStructure.
     /// </summary>
+    [MemoryDiagnoser]
     public class WriteAll
     {
         private int[] array;
@@ -454,6 +460,7 @@ namespace MyBenchmarks
     /// <summary>
     /// What's the fastest way to copy values from a Dictionary to a Stack?
     /// </summary>
+    [MemoryDiagnoser]
     public class CopyDictionaryToStack
     {
         private Dictionary<int, SimpleObject> dictionary;
@@ -505,6 +512,7 @@ namespace MyBenchmarks
     /// <summary>
     /// Does dumping a data structure to an array before looping over it improve performance?
     /// </summary>
+    [MemoryDiagnoser]
     public class DataStructureToArrayForeach
     {
         private Dictionary<int, SimpleObject> dictionary;
@@ -580,6 +588,7 @@ namespace MyBenchmarks
     /// <summary>
     /// Compares the performance of loops.
     /// </summary>
+    [MemoryDiagnoser]
     public class LoopAllElements
     {
         private int[] data;
@@ -660,16 +669,15 @@ namespace MyBenchmarks
     {
         public static void Main(string[] args)
         {
-            //var readAll = BenchmarkRunner.Run<ReadAll>();
-            //var readSingleRandom = BenchmarkRunner.Run<ReadSingleRandom>();
-            //var readFirst = BenchmarkRunner.Run<ReadFirst>();
-            //var readLast = BenchmarkRunner.Run<ReadLast>();
-            //var readSingleSpecific = BenchmarkRunner.Run<ReadSingleSpecific>();
-            //var writeAll = BenchmarkRunner.Run<WriteAll>();
-            //var dictionaryToStack = BenchmarkRunner.Run<CopyDictionaryToStack>();
+            var readAll = BenchmarkRunner.Run<ReadAll>();
+            var readSingleRandom = BenchmarkRunner.Run<ReadSingleRandom>();
+            var readFirst = BenchmarkRunner.Run<ReadFirst>();
+            var readLast = BenchmarkRunner.Run<ReadLast>();
+            var readSingleSpecific = BenchmarkRunner.Run<ReadSingleSpecific>();
+            var writeAll = BenchmarkRunner.Run<WriteAll>();
+            var dictionaryToStack = BenchmarkRunner.Run<CopyDictionaryToStack>();
             var toArray = BenchmarkRunner.Run<DataStructureToArrayForeach>();
-
-            //var loops = BenchmarkRunner.Run<LoopAllElements>();
+            var loops = BenchmarkRunner.Run<LoopAllElements>();
         }
     }
 }
